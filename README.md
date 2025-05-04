@@ -57,7 +57,6 @@ sudo firewall-cmd --reload
 
 ### Starting RustDesk Server
 ```bash
-cd rustdesk-setup # Or your chosen directory from cloning
 docker compose up -d
 ```
 
