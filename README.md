@@ -17,7 +17,6 @@ This guide provides instructions to quickly set up a self-hosted RustDesk server
 First, clone your `rustdesk-setup` GitHub repository which contains the `docker-compose.yml` file. This will also create the main deployment directory.
 
 ```bash
-# Clone your repository using the SSH URL
 git clone git@github.com:induslevel/rustdesk-setup.git
 cd rustdesk-setup
 ```
