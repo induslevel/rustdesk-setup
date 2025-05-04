@@ -23,3 +23,23 @@ cd rustdesk-setup
 
 # Create the data directory for RustDesk keys and configuration
 mkdir -p data
+
+
+
+# Fetch the public IP address (you can use other services like icanhazip.com if preferred)
+PUBLIC_IP=$(curl -s ifconfig.me)
+
+# Verify that PUBLIC_IP was fetched correctly
+if [ -z "$PUBLIC_IP" ]; then
+    echo "Failed to fetch Public IP. Please set it manually in docker-compose.yml."
+    exit 1
+fi
+echo "Detected Public IP: $PUBLIC_IP"
+
+# Use sed to replace the placeholder IP in docker-compose.yml
+# This command assumes the placeholder IP is '155.133.23.126' as in the example.
+# If your placeholder in the repo is different, adjust the sed command accordingly.
+# It's safer to match a more generic IP pattern if the placeholder might vary.
+sed -i "s|command: hbbs -r [0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}|command: hbbs -r $PUBLIC_IP|" docker-compose.yml
+
+echo "docker-compose.yml has been updated with the public IP: $PUBLIC_IP"
