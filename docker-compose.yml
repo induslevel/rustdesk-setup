@@ -1,0 +1,26 @@
+# docker-compose.yml
+services:
+  hbbs:
+    container_name: rustdesk_hbbs_support
+    image: rustdesk/rustdesk-server:latest
+    # In host mode, hbbs will listen on all interfaces of the host for its default ports (21115, 21116, etc.).
+    command: hbbs -r YOUR_SERVER_PUBLIC_IP # This line needs your actual public IP
+    volumes:
+      - ./data:/root # Persists RustDesk keys and configuration
+    # network_mode: host makes the container use the host's network stack.
+    # The 'ports' section is ignored in host mode.
+    network_mode: host
+    depends_on:
+      - hbbr
+    restart: unless-stopped
+
+  hbbr:
+    container_name: rustdesk_hbbr_support
+    image: rustdesk/rustdesk-server:latest
+    command: hbbr
+    volumes:
+      - ./data:/root # Persists RustDesk keys
+    # network_mode: host makes the container use the host's network stack.
+    # The 'ports' section is ignored in host mode.
+    network_mode: host
+    restart: unless-stopped
