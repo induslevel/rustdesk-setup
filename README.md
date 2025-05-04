@@ -41,3 +41,40 @@ sed -i "s|command: hbbs -r YOUR_SERVER_PUBLIC_IP|command: hbbs -r $PUBLIC_IP|" d
 
 echo "docker-compose.yml has been updated with the public IP: $PUBLIC_IP"
 
+
+## RustDesk Server - Quick Command Reference
+
+This section provides a quick reference for essential commands to set up and manage your self-hosted RustDesk server after cloning the repository and updating the `docker-compose.yml` with your public IP.
+
+### Firewall Configuration (firewalld)
+
+```bash
+sudo firewall-cmd --permanent --add-port=21114-21119/tcp
+sudo firewall-cmd --permanent --add-port=21116/udp
+sudo firewall-cmd --reload
+
+### Starting RustDesk Server
+```bash
+cd rustdesk-setup # Or your chosen directory from cloning
+docker compose up -d
+```
+
+### Checking Container Status
+```bash
+docker ps
+```
+
+
+Viewing Server Logs
+```bash
+docker logs rustdesk_hbbs_support -f
+docker logs rustdesk_hbbr_support -f
+```
+
+
+Obtaining Server's Public Key
+```bash
+cat ./data/id_ed25519.pub 
+```
+
+
