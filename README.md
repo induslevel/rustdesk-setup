@@ -36,10 +36,8 @@ if [ -z "$PUBLIC_IP" ]; then
 fi
 echo "Detected Public IP: $PUBLIC_IP"
 
-# Use sed to replace the placeholder IP in docker-compose.yml
-# This command assumes the placeholder IP is '155.133.23.126' as in the example.
-# If your placeholder in the repo is different, adjust the sed command accordingly.
-# It's safer to match a more generic IP pattern if the placeholder might vary.
-sed -i "s|command: hbbs -r [0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}|command: hbbs -r $PUBLIC_IP|" docker-compose.yml
+# Use sed to replace the placeholder 'YOUR_SERVER_PUBLIC_IP' in docker-compose.yml
+sed -i "s|command: hbbs -r YOUR_SERVER_PUBLIC_IP|command: hbbs -r $PUBLIC_IP|" docker-compose.yml
 
 echo "docker-compose.yml has been updated with the public IP: $PUBLIC_IP"
+
