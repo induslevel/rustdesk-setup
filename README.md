@@ -12,7 +12,7 @@ This guide provides instructions to quickly set up a self-hosted RustDesk server
 * A static public IP address for your server (referred to as `YOUR_SERVER_PUBLIC_IP` below).
 * Root or sudo privileges.
 
-## 1. Clone Repository and Directory Setup
+### Clone Repository and Directory Setup
 
 First, clone your `rustdesk-setup` GitHub repository which contains the `docker-compose.yml` file. This will also create the main deployment directory.
 
@@ -20,13 +20,16 @@ First, clone your `rustdesk-setup` GitHub repository which contains the `docker-
 # Clone your repository using the SSH URL
 git clone git@github.com:induslevel/rustdesk-setup.git
 cd rustdesk-setup
+```
 
-# Create the data directory for RustDesk keys and configuration
+### Create the data directory for RustDesk keys and configuration
+```bash
 mkdir -p data
+```
 
 
-
-# Fetch the public IP address (you can use other services like icanhazip.com if preferred)
+### Fetch the public IP address (you can use other services like icanhazip.com if preferred)
+```bash
 PUBLIC_IP=$(curl -s ifconfig.me)
 
 # Verify that PUBLIC_IP was fetched correctly
@@ -35,16 +38,15 @@ if [ -z "$PUBLIC_IP" ]; then
     exit 1
 fi
 echo "Detected Public IP: $PUBLIC_IP"
+```
 
-# Use sed to replace the placeholder 'YOUR_SERVER_PUBLIC_IP' in docker-compose.yml
+### Use sed to replace the placeholder 'YOUR_SERVER_PUBLIC_IP' in docker-compose.yml
+```bash
 sed -i "s|command: hbbs -r YOUR_SERVER_PUBLIC_IP|command: hbbs -r $PUBLIC_IP|" docker-compose.yml
 
 echo "docker-compose.yml has been updated with the public IP: $PUBLIC_IP"
+```
 
-
-## RustDesk Server - Quick Command Reference
-
-This section provides a quick reference for essential commands to set up and manage your self-hosted RustDesk server after cloning the repository and updating the `docker-compose.yml` with your public IP.
 
 ### Firewall Configuration (firewalld)
 
@@ -52,6 +54,7 @@ This section provides a quick reference for essential commands to set up and man
 sudo firewall-cmd --permanent --add-port=21114-21119/tcp
 sudo firewall-cmd --permanent --add-port=21116/udp
 sudo firewall-cmd --reload
+```
 
 ### Starting RustDesk Server
 ```bash
@@ -65,14 +68,14 @@ docker ps
 ```
 
 
-Viewing Server Logs
+### Viewing Server Logs
 ```bash
 docker logs rustdesk_hbbs_support -f
 docker logs rustdesk_hbbr_support -f
 ```
 
 
-Obtaining Server's Public Key
+### Obtaining Server's Public Key
 ```bash
 cat ./data/id_ed25519.pub 
 ```
