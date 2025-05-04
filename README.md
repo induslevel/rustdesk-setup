@@ -79,3 +79,16 @@ cat ./data/id_ed25519.pub
 ```
 
 
+### Configuring RustDesk Clients (Manual Setup)
+On each RustDesk client device you want to connect to your self-hosted server:
+Open the RustDesk application.
+
+Go to Settings (usually an icon next to your ID).
+Under the "ID/Relay Server" section (or similar wording):
+- **ID Server:** Enter your server's public IP address or domain name (e.g., support.induslevel.com).
+- **Relay Server:** Enter your server's public IP address or domain name (e.g. support.induslevel.com).
+- **API Server:** Leave this blank.
+- **Key:** Paste the public key you obtained in the previous step.
+Save the settings.
+
+
